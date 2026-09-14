@@ -62,7 +62,7 @@ export function LocalSetupForm() {
       </p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         {savedName ? (
-          <p className="rounded-xl bg-[var(--surface)] p-4">Perfil guardado: <strong>{savedName}</strong>. Continuar recupera todos tus registros.</p>
+          <p className="rounded-[3px] bg-[var(--surface)] p-4">Perfil guardado: <strong>{savedName}</strong>. Continuar recupera todos tus registros.</p>
         ) : !checking ? (
           <>
             <div>
@@ -73,7 +73,7 @@ export function LocalSetupForm() {
               <Label htmlFor="local-weight">Peso corporal (kg)</Label>
               <Input id="local-weight" name="bodyweight" type="number" min="1" max="500" step="0.1" placeholder="82" required />
             </div>
-            <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-[var(--border)] p-4 text-sm">
+            <label className="flex cursor-pointer items-start gap-3 rounded-[3px] border border-[var(--border)] p-4 text-sm">
               <input type="checkbox" checked={demo} onChange={(event) => setDemo(event.target.checked)} className="mt-1" />
               <span>Explorar con marcas de ejemplo <span className="mt-1 block text-[var(--foreground-muted)]">405 / 275 / 365 lb ≈ 183.7 / 124.7 / 165.6 kg. Se crea un ciclo demo sin sesiones inventadas.</span></span>
             </label>

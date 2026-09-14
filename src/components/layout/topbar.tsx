@@ -1,47 +1,22 @@
 "use client";
 
+import { LogOut } from "lucide-react";
 import Link from "next/link";
-import { LogOut, Settings2 } from "lucide-react";
-
 import { useAuth } from "@/components/providers/auth-provider";
 import { useI18n } from "@/components/providers/i18n-provider";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 export function Topbar() {
   const { user, signOut, isLocal } = useAuth();
   const { t } = useI18n();
-
   return (
-    <div className="flex flex-col gap-4 rounded-[28px] border border-[var(--border)] bg-[var(--card)]/95 p-4 sm:p-5 md:flex-row md:items-center md:justify-between">
-      <div className="min-w-0">
-        <p className="text-sm text-[var(--foreground-muted)]">{t("welcomeBack")}</p>
-        <div className="mt-2 flex flex-wrap items-center gap-3">
-          <p className="truncate text-xl font-semibold text-[var(--foreground)]">
-            {user?.full_name ?? user?.email ?? "Athlete"}
-          </p>
-          <Badge>{isLocal ? "Local · este navegador" : "Cuenta"}</Badge>
-        </div>
+    <header className="flex min-h-16 items-center justify-between gap-4 border-b border-[var(--border)]">
+      <Link href="/dashboard" className="wordmark lg:hidden">powerlog<span>.</span></Link>
+      <p className="label hidden sm:block">Bitácora de fuerza <span className="mx-3 opacity-40">/</span> {isLocal ? "Archivo local" : "Cuenta personal"}</p>
+      <div className="ml-auto flex min-w-0 items-center gap-3">
+        <Link href="/settings" className="max-w-40 truncate text-xs text-[var(--foreground-muted)] hover:text-[var(--foreground)]">{user?.full_name || user?.email || t("profile")}</Link>
+        <span className="hidden border-l border-[var(--border)] pl-3 font-mono text-[10px] text-[var(--foreground-soft)] sm:block">{isLocal ? "LOCAL" : "CUENTA"}</span>
+        <button onClick={() => void signOut()} className="flex size-11 items-center justify-center text-[var(--foreground-muted)] hover:text-[var(--accent)]" aria-label={t("signOut")} title={t("signOut")}><LogOut size={16} strokeWidth={1.5} /></button>
       </div>
-
-      <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:items-center">
-        <Link href="/settings" className="inline-flex">
-          <Button type="button" variant="secondary" className="w-full gap-2 sm:w-36">
-            <Settings2 className="size-4" />
-            {t("preferences")}
-          </Button>
-        </Link>
-
-        <Button
-          type="button"
-          variant="ghost"
-          onClick={() => signOut()}
-          className="w-full gap-2 sm:w-36"
-        >
-          <LogOut className="size-4" />
-          {t("signOut")}
-        </Button>
-      </div>
-    </div>
+    </header>
   );
 }

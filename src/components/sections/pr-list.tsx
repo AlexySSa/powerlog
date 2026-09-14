@@ -42,19 +42,19 @@ export function PRList({ prs }: { prs: PRRecord[] }) {
             </div>
 
             <div className="grid grid-cols-2 gap-3 md:min-w-[300px]">
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3">
+              <div className="rounded-[3px] border border-[var(--border)] bg-[var(--surface)] p-3">
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--foreground-muted)]">Peso</p>
                 <p className="mt-2 text-lg font-semibold text-[var(--foreground)]">{pr.weight} kg</p>
               </div>
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3">
+              <div className="rounded-[3px] border border-[var(--border)] bg-[var(--surface)] p-3">
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--foreground-muted)]">BW</p>
                 <p className="mt-2 text-lg font-semibold text-[var(--foreground)]">{pr.bodyweight} kg</p>
               </div>
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3">
+              <div className="rounded-[3px] border border-[var(--border)] bg-[var(--surface)] p-3">
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--foreground-muted)]">PR</p>
                 <p className="mt-2 text-lg font-semibold text-[var(--foreground)]">{pr.is_pr ? "Sí" : "No"}</p>
               </div>
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3">
+              <div className="rounded-[3px] border border-[var(--border)] bg-[var(--surface)] p-3">
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--foreground-muted)]">Resultado</p>
                 <p className="mt-2 text-lg font-semibold text-[var(--foreground)]">
                   {pr.successful ? "Hecho" : "Fallido"}

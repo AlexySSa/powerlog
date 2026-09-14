@@ -48,21 +48,21 @@ export function SettingsForm() {
   };
 
   return (
-    <Card className="p-5">
+    <Card className="border-0 bg-transparent p-0">
       <form className="grid gap-4 md:grid-cols-2" onSubmit={handleSubmit(onSubmit)}>
         <div className="md:col-span-2">
           <Label htmlFor="settings-name">{t("fullName")}</Label>
           <Input id="settings-name" {...register("full_name")} />
         </div>
 
-        <div>
+        {user?.email ? <div>
           <Label htmlFor="settings-email">{t("email")}</Label>
           <Input
             id="settings-email"
             value={data.profile?.email ?? user?.email ?? ""}
             readOnly
           />
-        </div>
+        </div> : null}
 
         <div>
           <Label htmlFor="settings-theme">{t("theme")}</Label>

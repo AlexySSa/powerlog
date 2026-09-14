@@ -14,7 +14,6 @@ import {
   YAxis,
 } from "recharts";
 
-import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Activity } from "lucide-react";
 
@@ -43,20 +42,21 @@ export function TrendChartCard<T extends object>({
   type = "line",
 }: GenericTrendChartCardProps<T>) {
   return (
-    <Card className="p-5">
-      <div className="mb-5">
-        <h3 className="text-lg font-semibold text-[var(--foreground)]">{title}</h3>
-        <p className="mt-2 text-sm text-[var(--foreground-muted)]">{description}</p>
+    <section className="chart-panel">
+      <div className="mb-5 border-b border-[var(--border)] pb-4">
+        <h3 className="section-title">{title}</h3>
+        <p className="mt-2 text-xs text-[var(--foreground-muted)]">{description}</p>
+        {data.length && series.length > 1 ? <div className="mt-3 flex flex-wrap gap-4">{series.map((item) => <span key={item.key} className="flex items-center gap-2 text-[10px] text-[var(--foreground-muted)]"><span className="h-[2px] w-4" style={{ backgroundColor: item.color }} />{item.label}</span>)}</div> : null}
       </div>
 
       {data.length === 0 ? (
         <EmptyState
           icon={Activity}
           title="Sin datos todavía"
-          description="Guarda algunos registros para desbloquear esta gráfica."
+          description="Todavía no hay registros para esta gráfica."
         />
       ) : (
-        <div className="h-72 w-full">
+        <div className="h-56 w-full">
           <ResponsiveContainer width="100%" height="100%">
             {type === "bar" ? (
               <BarChart data={data}>
@@ -67,7 +67,7 @@ export function TrendChartCard<T extends object>({
                   contentStyle={{
                     background: "var(--surface)",
                     border: "1px solid var(--border)",
-                    borderRadius: 16,
+                    borderRadius: 3,
                   }}
                 />
                 {series.map((item) => (
@@ -76,7 +76,7 @@ export function TrendChartCard<T extends object>({
                     dataKey={item.key}
                     name={item.label}
                     fill={item.color}
-                    radius={[12, 12, 4, 4]}
+                    radius={[1, 1, 0, 0]}
                   />
                 ))}
               </BarChart>
@@ -89,7 +89,7 @@ export function TrendChartCard<T extends object>({
                   contentStyle={{
                     background: "var(--surface)",
                     border: "1px solid var(--border)",
-                    borderRadius: 16,
+                    borderRadius: 3,
                   }}
                 />
                 {series.map((item) => (
@@ -101,7 +101,7 @@ export function TrendChartCard<T extends object>({
                     stroke={item.color}
                     fill={item.color}
                     fillOpacity={0.18}
-                    strokeWidth={3}
+                    strokeWidth={2}
                   />
                 ))}
               </AreaChart>
@@ -114,7 +114,7 @@ export function TrendChartCard<T extends object>({
                   contentStyle={{
                     background: "var(--surface)",
                     border: "1px solid var(--border)",
-                    borderRadius: 16,
+                    borderRadius: 3,
                   }}
                 />
                 {series.map((item) => (
@@ -124,7 +124,7 @@ export function TrendChartCard<T extends object>({
                     dataKey={item.key}
                     name={item.label}
                     stroke={item.color}
-                    strokeWidth={3}
+                    strokeWidth={2}
                     dot={{ r: 3 }}
                     activeDot={{ r: 5 }}
                   />
@@ -134,6 +134,6 @@ export function TrendChartCard<T extends object>({
           </ResponsiveContainer>
         </div>
       )}
-    </Card>
+    </section>
   );
 }

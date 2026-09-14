@@ -20,6 +20,8 @@ El modo local no hace llamadas a la API para leer o guardar entrenamientos una v
 
 ## Flujo disponible
 
+La interfaz utiliza una bitácora sobria: fondo carbón, hoja de sesión en tono papel, tablas de resultados, tipografía de sistema y rojo para acciones. Inicio, Ciclos, Entrenar, Progreso y Perfil son los cinco accesos principales; recuperación, marcas y evaluación semanal están disponibles desde Perfil en móvil y desde la barra lateral en escritorio. Las semanas del ciclo se despliegan individualmente. Hay temas claro y oscuro y respeto a movimiento reducido.
+
 1. Configura o retoma el perfil local en `/auth`.
 2. Consulta el bloque y la próxima sesión en Inicio (`/dashboard`).
 3. Inicia una sesión desde Inicio o Ciclos: se precargan ciclo, semana, día, ejercicios, series y repeticiones.
@@ -120,7 +122,7 @@ npm start
 Esta entrega es una mejora funcional de la base existente, **no el cumplimiento completo del documento MVP**.
 
 - **Fase 1, integrada:** repositorio independiente; guardado local sin cuenta; onboarding básico y ciclo inicial; recorrido ciclo → entrenamiento → resultados → progreso; fórmulas y pruebas; separación real/estimado; validación API; documentación y CI.
-- **Fase 2:** ciclos de 4–12 semanas y edición completa; cinco secciones principales; perfil con unidades, experiencia, días, variantes y objetivos; series individuales, calentamientos y estados completado/modificado/fallado.
+- **Fase 2:** ciclos de 4–12 semanas y edición completa; perfil con unidades, experiencia, días, variantes y objetivos; series individuales, calentamientos y estados completado/modificado/fallado.
 - **Fase 3:** check-in de seis variables 1–5, indicador combinado de fatiga, revisión semanal automática, prioridad única y aprobación visible de ajustes; filtros de PR por variante/ciclo/RPE/fecha/tipo y gráficas adicionales.
 - **Fase 4:** PWA con recarga offline verificada, exportación/copia de seguridad, migraciones, importación CSV y futura sincronización. Integración con Hevy solo si se verifica un mecanismo oficial.
 

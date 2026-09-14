@@ -23,7 +23,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   if (loading || !user) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[var(--background)] px-6">
-        <div className="rounded-[28px] border border-[var(--border)] bg-[var(--card)] px-8 py-10 text-center">
+        <div className="rounded-[3px] border border-[var(--border)] bg-[var(--card)] px-8 py-10 text-center">
           <LoaderCircle className="mx-auto size-8 animate-spin text-[var(--accent)]" />
           <p className="mt-4 text-sm text-[var(--foreground-muted)]">{t("loading")}...</p>
         </div>
@@ -33,13 +33,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
-      <div className="mx-auto flex max-w-[1680px]">
+      <div className="mx-auto flex max-w-[1600px]">
         <Sidebar />
 
-        <main className="flex-1 px-4 pb-32 pt-4 sm:px-6 lg:px-8 lg:pb-8 lg:pt-6">
+        <main className="min-w-0 flex-1 px-5 pb-28 sm:px-8 lg:px-10 lg:pb-12">
           <Topbar />
 
-          <div className="mt-6">{children}</div>
+          <div className="mx-auto mt-8 max-w-[1160px] lg:mt-10">{children}</div>
         </main>
       </div>
     </div>

@@ -20,7 +20,7 @@ function SessionWorkoutForm() {
   return (
     <div className="space-y-4">
       {requestedPlan && !plan ? (
-        <p role="status" className="rounded-2xl border border-[var(--border)] p-4 text-sm text-[var(--foreground-muted)]">
+        <p role="status" className="rounded-[3px] border border-[var(--border)] p-4 text-sm text-[var(--foreground-muted)]">
           La sesión del enlace no está disponible. Puedes registrar una sesión manual o elegir otra desde Ciclo.
         </p>
       ) : null}

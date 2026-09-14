@@ -59,7 +59,7 @@ export default function RecoveryPage() {
           <h3 className="text-lg font-semibold text-[var(--foreground)]">{t("recoveryStatus")}</h3>
           {latestRecovery ? (
             <div className="mt-5 grid gap-3 md:grid-cols-2">
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
+              <div className="rounded-[3px] border border-[var(--border)] bg-[var(--surface)] p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--foreground-muted)]">
                   {t("sleepQuality")}
                 </p>
@@ -67,7 +67,7 @@ export default function RecoveryPage() {
                   {latestRecovery.sleep_quality}/10
                 </p>
               </div>
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
+              <div className="rounded-[3px] border border-[var(--border)] bg-[var(--surface)] p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--foreground-muted)]">
                   {t("energy")}
                 </p>
@@ -75,7 +75,7 @@ export default function RecoveryPage() {
                   {latestRecovery.energy}/10
                 </p>
               </div>
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
+              <div className="rounded-[3px] border border-[var(--border)] bg-[var(--surface)] p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--foreground-muted)]">
                   {t("stress")}
                 </p>
@@ -83,7 +83,7 @@ export default function RecoveryPage() {
                   {latestRecovery.stress}/10
                 </p>
               </div>
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
+              <div className="rounded-[3px] border border-[var(--border)] bg-[var(--surface)] p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-[var(--foreground-muted)]">
                   {t("mobilityDone")}
                 </p>

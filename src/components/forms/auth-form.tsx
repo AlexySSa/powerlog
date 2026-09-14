@@ -43,10 +43,10 @@ export function AuthForm() {
 
   return (
     <Card className="p-6 md:p-8">
-      <div className="inline-flex rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-1">
+      <div className="inline-flex rounded-[3px] border border-[var(--border)] bg-[var(--surface)] p-1">
         <button
           type="button"
-          className={`rounded-2xl px-4 py-2 text-sm font-semibold ${
+          className={`rounded-[3px] px-4 py-2 text-sm font-semibold ${
             mode === "signin"
               ? "bg-[var(--accent)] text-[var(--accent-foreground)]"
               : "text-[var(--foreground-muted)]"
@@ -57,7 +57,7 @@ export function AuthForm() {
         </button>
         <button
           type="button"
-          className={`rounded-2xl px-4 py-2 text-sm font-semibold ${
+          className={`rounded-[3px] px-4 py-2 text-sm font-semibold ${
             mode === "signup"
               ? "bg-[var(--accent)] text-[var(--accent-foreground)]"
               : "text-[var(--foreground-muted)]"

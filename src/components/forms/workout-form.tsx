@@ -43,7 +43,7 @@ function RestTimer() {
     return () => window.clearInterval(interval);
   }, [deadline]);
   return (
-    <div className="flex flex-wrap items-end gap-3 rounded-2xl border border-[var(--border)] p-4">
+    <div className="flex flex-wrap items-end gap-3 rounded-[3px] border border-[var(--border)] p-4">
       <div className="min-w-32 flex-1">
         <Label htmlFor="rest-duration">Descanso</Label>
         <Select id="rest-duration" value={duration} onChange={(event) => {
@@ -136,23 +136,23 @@ export function WorkoutForm({ plannedSession }: { plannedSession?: PlannedSessio
     <Card className="space-y-4 p-5">
       <h3 role="status" className="text-xl font-semibold">Sesión guardada</h3>
       <p className="text-sm text-[var(--foreground-muted)]">Volumen registrado: {totalVolume.toFixed(0)} kg. Ya puedes consultar tus resultados y progreso.</p>
-      <Link className="inline-flex min-h-12 items-center rounded-2xl bg-[var(--accent)] px-4 font-semibold text-[var(--accent-foreground)]" href="/progress">Ver progreso</Link>
+      <Link className="inline-flex min-h-12 items-center rounded-[3px] bg-[var(--accent)] px-4 font-semibold text-[var(--accent-foreground)]" href="/progress">Ver progreso</Link>
       <Button type="button" variant="secondary" onClick={() => { reset(); setSaved(false); }}>Registrar otra sesión</Button>
     </Card>
   );
 
   return (
-    <Card className="p-5">
+    <Card className="border-0 bg-transparent p-0">
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
         {plannedSession ? (
-          <section className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
+          <section className="border-l-2 border-[var(--accent)] bg-[var(--surface)] px-5 py-4">
             <h3 className="font-semibold">Trabajo planificado · {plannedSession.cycle.name}</h3>
             <p className="mt-1 text-sm text-[var(--foreground-muted)]">Semana {plannedSession.weekNumber} · {plannedSession.session.day_label} · {plannedSession.session.focus}</p>
-            <ul className="mt-3 space-y-2 text-sm">
+            <ul className="mt-3 grid gap-2 text-xs sm:grid-cols-2">
               {plannedSession.session.exercises.map((exercise, index) => <li key={index}>{exercise.name}: <strong>{exercise.prescription}</strong></li>)}
             </ul>
             {plannedSession.session.notes ? <p className="mt-3 text-sm text-[var(--foreground-muted)]">{plannedSession.session.notes}</p> : null}
-            <p className="mt-3 text-xs text-[var(--foreground-muted)]">Registra abajo lo realizado. Revisa series y repeticiones precargadas; los rangos usan su mínimo. Introduce tu carga y RPE reales. La movilidad queda como referencia.</p>
+            <p className="mt-3 text-xs leading-5 text-[var(--foreground-muted)]">Series y repeticiones precargadas del plan. Introduce la carga y el RPE que realizaste.</p>
           </section>
         ) : null}
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -200,7 +200,7 @@ export function WorkoutForm({ plannedSession }: { plannedSession?: PlannedSessio
 
         <RestTimer />
 
-        <div className="flex items-center justify-between rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3">
+        <div className="flex items-center justify-between rounded-[3px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3">
           <div>
             <p className="text-sm font-semibold text-[var(--foreground)]">{t("volume")}</p>
             <p className="text-2xl font-semibold text-[var(--accent)]">{totalVolume.toFixed(0)} kg</p>
@@ -228,9 +228,9 @@ export function WorkoutForm({ plannedSession }: { plannedSession?: PlannedSessio
 
         <div className="space-y-4">
           {fields.map((field, index) => (
-            <div key={field.id} className="rounded-[24px] border border-[var(--border)] bg-[var(--surface)] p-4">
+            <div key={field.id} className="border-t border-[var(--border)] py-5">
               {plannedSession?.session.exercises.find((exercise) => exercise.name === watchedSets[index]?.exercise_name) ? (
-                <p className="mb-3 text-sm text-[var(--accent)]">Plan: {plannedSession.session.exercises.find((exercise) => exercise.name === watchedSets[index]?.exercise_name)?.prescription} · Abajo: realizado</p>
+                <p className="label mb-4">Plan: {plannedSession.session.exercises.find((exercise) => exercise.name === watchedSets[index]?.exercise_name)?.prescription}</p>
               ) : null}
               <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
                 <div className="xl:col-span-2">

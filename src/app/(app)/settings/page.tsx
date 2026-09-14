@@ -1,62 +1,30 @@
 "use client";
 
-import { Palette, Settings2, UserRound } from "lucide-react";
-
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { SettingsForm } from "@/components/forms/settings-form";
 import { useAppData } from "@/components/providers/app-data-provider";
+import { useAuth } from "@/components/providers/auth-provider";
 import { useI18n } from "@/components/providers/i18n-provider";
-import { Card } from "@/components/ui/card";
 import { PageHeader } from "@/components/ui/page-header";
 
 export default function SettingsPage() {
   const { data } = useAppData();
+  const { isLocal } = useAuth();
   const { t } = useI18n();
-
   return (
-    <div className="space-y-6">
-      <PageHeader
-        eyebrow={t("preferences")}
-        title={t("preferences")}
-        description="Mueve idioma y tema aqui, y deja la app lista para que se sienta bien en tu uso diario."
-      />
-
-      <div className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
-        <SettingsForm />
-
-        <div className="space-y-4">
-          <Card className="p-5">
-            <div className="flex items-center gap-3">
-              <div className="rounded-2xl bg-[var(--surface)] p-3 text-[var(--accent)]">
-                <Settings2 className="size-5" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-[var(--foreground)]">
-                  Ajustes guardados en MySQL
-                </h3>
-                <p className="mt-1 text-sm text-[var(--foreground-muted)]">
-                  Tu idioma y tema quedan asociados a tu cuenta.
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="grid gap-4 p-5 md:grid-cols-2">
-            <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
-              <UserRound className="size-5 text-[var(--accent)]" />
-              <p className="mt-3 text-sm text-[var(--foreground-soft)]">{t("fullName")}</p>
-              <p className="mt-2 text-lg font-semibold text-[var(--foreground)]">
-                {data.profile?.full_name ?? "--"}
-              </p>
-            </div>
-            <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
-              <Palette className="size-5 text-[var(--accent)]" />
-              <p className="mt-3 text-sm text-[var(--foreground-soft)]">{t("theme")}</p>
-              <p className="mt-2 text-lg font-semibold text-[var(--foreground)]">
-                {data.profile?.preferred_theme === "light" ? t("light") : t("dark")}
-              </p>
-            </div>
-          </Card>
-        </div>
+    <div className="space-y-8">
+      <PageHeader eyebrow="Tu bitácora" title={t("profile")} description="Datos personales y preferencias de la aplicación." />
+      <div className="grid gap-10 xl:grid-cols-[1.2fr_1fr]">
+        <section><h2 className="label mb-5">Preferencias</h2><SettingsForm /></section>
+        <aside>
+          <h2 className="label border-b border-[var(--border)] pb-4">Archivo personal</h2>
+          <p className="mt-5 text-xl font-medium tracking-tight">{data.profile?.full_name ?? "—"}</p>
+          <p className="mt-3 max-w-sm text-sm leading-6 text-[var(--foreground-muted)]">{isLocal ? "Tus registros están guardados en este navegador. No se sincronizan con una cuenta." : "Tus registros y preferencias están asociados a tu cuenta."}</p>
+          {isLocal ? <p className="mt-3 text-xs leading-5 text-[var(--foreground-soft)]">Borrar los datos del navegador elimina esta bitácora.</p> : null}
+          <h2 className="label mb-1 mt-10 border-b border-[var(--border)] pb-4">Otros registros</h2>
+          {[{ href: "/recovery", title: t("recovery"), detail: "Sueño, energía y molestias" }, { href: "/war-room", title: t("warRoom"), detail: "Intentos, fechas y videos" }, { href: "/weekly-review", title: t("weeklyReview"), detail: "Notas para la próxima semana" }].map((item) => <Link href={item.href} key={item.href} className="flex min-h-20 items-center justify-between gap-4 border-b border-[var(--border)] py-4 hover:text-[var(--accent)]"><span><span className="block text-sm">{item.title}</span><span className="mt-2 block text-xs text-[var(--foreground-muted)]">{item.detail}</span></span><ArrowUpRight size={16} /></Link>)}
+        </aside>
       </div>
     </div>
   );

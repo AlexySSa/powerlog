@@ -1,58 +1,23 @@
 "use client";
 
 import { Activity } from "lucide-react";
-
 import { EmptyState } from "@/components/ui/empty-state";
-import { Card } from "@/components/ui/card";
 import { getBestSetLabel } from "@/lib/metrics";
 import { Workout } from "@/lib/types";
-import { formatDate } from "@/lib/utils";
+import { formatDate, formatNumber } from "@/lib/utils";
 
 export function RecentWorkoutsList({ workouts }: { workouts: Workout[] }) {
-  const orderedWorkouts = [...workouts].sort((a, b) => +new Date(b.date) - +new Date(a.date));
-
-  if (orderedWorkouts.length === 0) {
-    return (
-      <EmptyState
-        icon={Activity}
-        title="Sin sesiones recientes"
-        description="Cuando registres tu próximo entreno, aparecerá aquí con volumen y mejor set."
-      />
-    );
-  }
-
+  const ordered = [...workouts].sort((a, b) => b.date.localeCompare(a.date));
+  if (!ordered.length) return <EmptyState icon={Activity} title="Sin sesiones registradas" description="Los entrenamientos que guardes aparecerán aquí." />;
   return (
-    <div className="space-y-4">
-      {orderedWorkouts.map((workout) => {
-        const totalVolume = workout.sets.reduce((sum, entry) => sum + entry.volume, 0);
-        const bestSet = [...workout.sets].sort((a, b) => b.best_set_weight - a.best_set_weight)[0];
-
-        return (
-          <Card key={workout.id} className="p-5">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="text-sm text-[var(--foreground-muted)]">
-                  {formatDate(workout.date)} · Semana {workout.week_number} · {workout.day_label}
-                </p>
-                <h3 className="mt-2 text-xl font-semibold text-[var(--foreground)]">{workout.title}</h3>
-                <p className="mt-2 text-sm text-[var(--foreground-soft)]">{workout.notes || "Sin notas."}</p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 md:min-w-[280px]">
-                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3">
-                  <p className="text-xs uppercase tracking-[0.2em] text-[var(--foreground-muted)]">Volumen</p>
-                  <p className="mt-2 text-lg font-semibold text-[var(--foreground)]">{totalVolume.toFixed(0)} kg</p>
-                </div>
-                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3">
-                  <p className="text-xs uppercase tracking-[0.2em] text-[var(--foreground-muted)]">Mejor set</p>
-                  <p className="mt-2 text-lg font-semibold text-[var(--foreground)]">
-                    {bestSet ? getBestSetLabel(bestSet) : "--"}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Card>
-        );
+    <div className="border-t border-[var(--border)]">
+      {ordered.map((workout) => {
+        const volume = workout.sets.reduce((sum, set) => sum + set.volume, 0);
+        const best = [...workout.sets].sort((a, b) => b.best_set_weight - a.best_set_weight)[0];
+        return <article key={workout.id} className="grid gap-5 border-b border-[var(--border)] py-5 sm:grid-cols-[1fr_auto]">
+          <div><p className="font-mono text-[10px] text-[var(--foreground-muted)]">{formatDate(workout.date)} / S{workout.week_number} / {workout.day_label}</p><h3 className="mt-2 text-base font-semibold tracking-tight">{workout.title}</h3>{workout.notes ? <p className="mt-2 text-xs leading-5 text-[var(--foreground-muted)]">{workout.notes}</p> : null}</div>
+          <dl className="flex gap-8"><div><dt className="label">Volumen</dt><dd className="mt-2 font-mono text-sm">{formatNumber(volume)} kg</dd></div><div><dt className="label">Mejor serie</dt><dd className="mt-2 font-mono text-sm">{best ? getBestSetLabel(best) : "—"}</dd></div></dl>
+        </article>;
       })}
     </div>
   );

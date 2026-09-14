@@ -1,101 +1,83 @@
 @import "tailwindcss";
 
-:root,
-.dark {
-  --background: #090b10;
-  --background-soft: #121723;
-  --foreground: #f4f7fb;
-  --foreground-muted: #a8b2c7;
-  --foreground-soft: #7b8598;
-  --surface: rgba(19, 25, 37, 0.88);
-  --surface-strong: rgba(30, 39, 56, 0.98);
-  --card: rgba(14, 19, 29, 0.92);
-  --sidebar: rgba(9, 12, 18, 0.94);
-  --border: rgba(108, 125, 160, 0.18);
-  --accent: #ef4444;
-  --accent-strong: #f87171;
-  --accent-foreground: #160808;
-  --chart-grid: rgba(137, 151, 181, 0.18);
+:root, .dark {
+  --background: #141413;
+  --background-soft: #1b1b19;
+  --foreground: #eeeae2;
+  --foreground-muted: #aaa79f;
+  --foreground-soft: #929087;
+  --surface: #1c1c1a;
+  --surface-strong: #292925;
+  --card: #1b1b19;
+  --sidebar: #10100f;
+  --border: #353530;
+  --accent: #ee6658;
+  --accent-strong: #fa8275;
+  --accent-foreground: #191311;
+  --chart-grid: #33332e;
+  --chart-secondary: #b8b299;
+  --chart-tertiary: #91a08d;
+  --paper: #e9e5da;
+  --ink: #23231f;
+  --paper-muted: #66655e;
+  --paper-line: #c9c6bb;
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-heading: Arial, Helvetica, sans-serif;
 }
-
 .light {
-  --background: #eef2f8;
-  --background-soft: #f8fafc;
-  --foreground: #111827;
-  --foreground-muted: #475569;
-  --foreground-soft: #64748b;
-  --surface: rgba(255, 255, 255, 0.92);
-  --surface-strong: rgba(244, 247, 252, 0.98);
-  --card: rgba(255, 255, 255, 0.96);
-  --sidebar: rgba(240, 244, 251, 0.96);
-  --border: rgba(100, 116, 139, 0.16);
-  --accent: #b91c1c;
-  --accent-strong: #991b1b;
+  --background: #f2f0e9;
+  --background-soft: #eae7df;
+  --foreground: #23231f;
+  --foreground-muted: #65645d;
+  --foreground-soft: #747269;
+  --surface: #eae7df;
+  --surface-strong: #dfdcd3;
+  --card: #f8f6ef;
+  --sidebar: #e9e6dd;
+  --border: #cecbc2;
+  --accent: #ac3025;
+  --accent-strong: #90271e;
   --accent-foreground: #ffffff;
-  --chart-grid: rgba(148, 163, 184, 0.26);
+  --chart-grid: #d5d2c8;
+  --chart-secondary: #756e58;
+  --chart-tertiary: #4f6e49;
 }
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-body);
-  --font-heading: var(--font-heading);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
-
-html {
-  background:
-    radial-gradient(circle at top left, rgba(239, 68, 68, 0.12), transparent 28%),
-    radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 25%),
-    linear-gradient(180deg, var(--background-soft) 0%, var(--background) 60%);
-  background-attachment: fixed;
-}
-
-body {
-  background: transparent;
-  color: var(--foreground);
-}
-
-* {
-  border-color: var(--border);
-}
-
-::selection {
-  background: rgba(239, 68, 68, 0.35);
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.35);
-}
-
-a,
-button,
-input,
-textarea,
-select {
-  transition:
-    background-color 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
-}
-
-.font-heading {
-  font-family: var(--font-heading), sans-serif;
-}
-
+html { background: var(--background); }
+body { color: var(--foreground); font-size: 14px; }
+@layer base { * { border-color: var(--border); } }
+::selection { background: var(--accent); color: var(--accent-foreground); }
+a, button, input, textarea, select { transition: background-color 140ms, color 140ms, border-color 140ms; }
+button, a, summary { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), summary { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.font-heading { font-family: Arial, Helvetica, sans-serif; font-weight: 700; letter-spacing: -0.045em; }
+.label { font-family: "SFMono-Regular", Consolas, monospace; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .13em; color: var(--foreground-muted); }
+.wordmark { font-size: 24px; font-weight: 800; letter-spacing: -.075em; line-height: 1; }
+.wordmark span { color: var(--accent); }
+.action-link { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 14px; padding: 0 18px; border: 1px solid var(--accent); border-radius: 3px; background: var(--accent); color: var(--accent-foreground); font-size: 13px; font-weight: 700; }
+.action-link:hover { background: var(--accent-strong); }
+.text-link { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; font-size: 12px; color: var(--foreground-muted); }
+.text-link:hover { color: var(--foreground); }
+.section-title { font-size: 15px; font-weight: 600; letter-spacing: -.02em; }
+.session-paper { background: var(--paper); color: var(--ink); }
+.session-paper .label { color: var(--paper-muted); }
+.log-table { width: 100%; text-align: left; border-collapse: collapse; }
+.log-table th { padding: 12px 0; font-family: Consolas, monospace; text-transform: uppercase; letter-spacing: .1em; font-size: 10px; font-weight: 400; color: var(--foreground-muted); border-bottom: 1px solid var(--border); }
+.log-table td { padding: 18px 0; border-bottom: 1px solid var(--border); }
+.session-paper .log-table th { color: var(--paper-muted); border-color: var(--paper-line); }
+.session-paper .log-table td { border-color: var(--paper-line); }
+.log-table td:last-child, .log-table th:last-child { text-align: right; }
+.chart-panel { min-width: 0; }
+progress { appearance: none; border: none; background: var(--surface-strong); border-radius: 0; }
+progress::-webkit-progress-bar { background: var(--surface-strong); }
+progress::-webkit-progress-value { background: var(--accent); }
+progress::-moz-progress-bar { background: var(--accent); }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }

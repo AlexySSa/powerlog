@@ -20,9 +20,12 @@ export default function CyclesPage() {
         description={t("cycleGeneratorDescription")}
       />
 
-      <div className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
-        <div className="space-y-4">
-          <CycleForm />
+      <div className="grid items-start gap-10 xl:grid-cols-[0.8fr_1.2fr]">
+        <div className="space-y-6">
+          <details open={!dashboard.activeCycle} className="border-y border-[var(--border)] py-4">
+            <summary className="section-title">Crear un nuevo bloque</summary>
+            <div className="mt-5"><CycleForm /></div>
+          </details>
           {dashboard.activeCycle ? (
             <Card className="p-5">
               <p className="text-sm text-[var(--foreground-muted)]">{t("currentCycle")}</p>
@@ -49,7 +52,7 @@ export default function CyclesPage() {
           <h3 className="text-lg font-semibold text-[var(--foreground)]">Historial de ciclos</h3>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
             {data.cycles.slice(1).map((cycle) => (
-              <div key={cycle.id} className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
+              <div key={cycle.id} className="rounded-[3px] border border-[var(--border)] bg-[var(--surface)] p-4">
                 <p className="text-sm text-[var(--foreground-muted)]">
                   {formatDate(cycle.start_date)} - {formatDate(cycle.end_date)}
                 </p>
