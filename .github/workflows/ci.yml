@@ -1,0 +1,27 @@
+name: Validate PowerLog
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: mysql://powerlog:development@127.0.0.1:3306/powerlog
+      AUTH_SECRET: ci-only-placeholder-not-for-deployment
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run db:generate
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - run: npm run typecheck

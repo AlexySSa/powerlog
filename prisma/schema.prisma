@@ -1,0 +1,147 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String         @id @default(cuid())
+  email             String         @unique
+  passwordHash      String
+  fullName          String
+  preferredLanguage String         @default("es")
+  preferredTheme    String         @default("dark")
+  currentBodyweight Float?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  cycles            Cycle[]
+  workouts          Workout[]
+  recoveryLogs      RecoveryLog[]
+  prs               PR[]
+  weeklyReviews     WeeklyReview[]
+}
+
+model Cycle {
+  id                 String         @id @default(cuid())
+  userId             String
+  name               String
+  startDate          DateTime       @db.Date
+  endDate            DateTime       @db.Date
+  goal               String         @db.Text
+  initialSquatRm     Float
+  initialBenchRm     Float
+  initialDeadliftRm  Float
+  initialBodyweight  Float
+  isActive           Boolean        @default(true)
+  programTemplate    Json
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  user               User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workouts           Workout[]
+  prs                PR[]
+  weeklyReviews      WeeklyReview[]
+
+  @@index([userId, startDate(sort: Desc)])
+}
+
+model Workout {
+  id         String       @id @default(cuid())
+  userId     String
+  cycleId    String?
+  date       DateTime     @db.Date
+  weekNumber Int
+  dayLabel   String
+  title      String
+  notes      String?      @db.Text
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cycle      Cycle?       @relation(fields: [cycleId], references: [id], onDelete: SetNull)
+  sets       WorkoutSet[]
+
+  @@index([userId, date(sort: Desc)])
+}
+
+model WorkoutSet {
+  id             String    @id @default(cuid())
+  workoutId      String
+  exerciseName   String
+  weight         Float
+  sets           Int
+  reps           Int
+  rpe            Float?
+  notes          String?   @db.Text
+  videoUrl       String?
+  volume         Float
+  estimated1rm   Float
+  bestSetWeight  Float
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  workout        Workout   @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+
+  @@index([workoutId])
+}
+
+model RecoveryLog {
+  id            String    @id @default(cuid())
+  userId        String
+  date          DateTime  @db.Date
+  bodyweight    Float
+  sleepHours    Float
+  sleepQuality  Int
+  energy        Int
+  stress        Int
+  lowBackPain   Int
+  kneePain      Int
+  shoulderPain  Int
+  mobilityDone  Boolean   @default(false)
+  notes         String?   @db.Text
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, date(sort: Desc)])
+}
+
+model PR {
+  id          String    @id @default(cuid())
+  userId      String
+  cycleId     String?
+  date        DateTime  @db.Date
+  exercise    String
+  weight      Float
+  bodyweight  Float
+  videoUrl    String?
+  comments    String?   @db.Text
+  isPr        Boolean   @default(true)
+  successful  Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cycle       Cycle?    @relation(fields: [cycleId], references: [id], onDelete: SetNull)
+
+  @@index([userId, date(sort: Desc)])
+}
+
+model WeeklyReview {
+  id               String    @id @default(cuid())
+  userId           String
+  cycleId          String?
+  weekNumber       Int
+  reviewDate       DateTime  @db.Date
+  weeklyFeeling    String    @db.Text
+  sleptEnough      String    @db.Text
+  recoveryQuality  String    @db.Text
+  painNotes        String    @db.Text
+  improveNext      String    @db.Text
+  nextWeekGoal     String    @db.Text
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cycle            Cycle?    @relation(fields: [cycleId], references: [id], onDelete: SetNull)
+
+  @@index([userId, reviewDate(sort: Desc)])
+}

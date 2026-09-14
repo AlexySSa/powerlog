@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root,
+.dark {
+  --background: #090b10;
+  --background-soft: #121723;
+  --foreground: #f4f7fb;
+  --foreground-muted: #a8b2c7;
+  --foreground-soft: #7b8598;
+  --surface: rgba(19, 25, 37, 0.88);
+  --surface-strong: rgba(30, 39, 56, 0.98);
+  --card: rgba(14, 19, 29, 0.92);
+  --sidebar: rgba(9, 12, 18, 0.94);
+  --border: rgba(108, 125, 160, 0.18);
+  --accent: #ef4444;
+  --accent-strong: #f87171;
+  --accent-foreground: #160808;
+  --chart-grid: rgba(137, 151, 181, 0.18);
+}
+
+.light {
+  --background: #eef2f8;
+  --background-soft: #f8fafc;
+  --foreground: #111827;
+  --foreground-muted: #475569;
+  --foreground-soft: #64748b;
+  --surface: rgba(255, 255, 255, 0.92);
+  --surface-strong: rgba(244, 247, 252, 0.98);
+  --card: rgba(255, 255, 255, 0.96);
+  --sidebar: rgba(240, 244, 251, 0.96);
+  --border: rgba(100, 116, 139, 0.16);
+  --accent: #b91c1c;
+  --accent-strong: #991b1b;
+  --accent-foreground: #ffffff;
+  --chart-grid: rgba(148, 163, 184, 0.26);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+}
+
+html {
+  background:
+    radial-gradient(circle at top left, rgba(239, 68, 68, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 25%),
+    linear-gradient(180deg, var(--background-soft) 0%, var(--background) 60%);
+  background-attachment: fixed;
+}
+
+body {
+  background: transparent;
+  color: var(--foreground);
+}
+
+* {
+  border-color: var(--border);
+}
+
+::selection {
+  background: rgba(239, 68, 68, 0.35);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.35);
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.font-heading {
+  font-family: var(--font-heading), sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
